@@ -35,9 +35,9 @@ is_public=$YNH_APP_ARG_IS_PUBLIC
 #then
 #    ynh_die "Sorry, it can only be installed on Debian Jessie"
 #fi
-#archi=$(uname -m)
-#pwd=$(pwd)
-#wwwhome=~www-data
+archi=$(uname -m)
+pwd=$(pwd)
+wwwhome=~www-data
 
 #=================================================
 # FIND AND OPEN A PORT
