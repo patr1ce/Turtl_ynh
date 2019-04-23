@@ -145,30 +145,27 @@ pip install rethinkdb
 cd $wwwhome
 mkdir turtl/data -p
 cd turtl
-git clone https://github.com/turtl/api.git
+git clone https://github.com/turtl/server.git
 
 #=================================================
 # CONFIGURE TURTL
 #=================================================
-cd api
+cd server
 
 # Copions le modèle de fichier de configuration
-cp config/config.default.lisp config/config.lisp
+cp config/config.yaml.default config/config.yaml
 
 # Modifie la configuration de turtl
-sed -e "s@\*server-port\* 8181@*server-port* $port@" \
-    -e "s@\*server-bind\* nil@*server-bind* \"127.0.0.1\"@" \
-    -e "s@\*production-error-handling\* nil@*production-error-handling* t@" \
-    -e "s@\*site-url\* \"http://turtl.dev:8181\"@*site-url* \"https://$domain\"@" \
-    -e "s@\*smtp-host\* nil@*smtp-host* \"localhost\"@" \
-    -e "s@\*display-errors\* t@*display-errors* nil@" \
-    -e "s@\*local-upload\* nil@*local-upload* \"$wwwhome/turtl/data\"@" \
-    -e "s@\*local-upload-url\* nil@*local-upload-url* \"https://$domain\"@" \
-    -i config/config.lisp
+sed -e "s@\*port:\* 8181@*port:* $port@" \
+    -e "s@\*www_url:\* \'https://yourdomain.com\'@*www_url* \'https://$domain\'@" \
+    -e "s@\*smtp-host\* nil@*smtp-host* \'localhost\'@" \
+    -e "s@\*local:\* \'/var/www/turtl/server/public/uploads\'@*local:* \'$wwwhome/turtl/data\'@" \
+    -e "s@\*url:\* \'http://api.turtl.dev/uploads\'@*url:* \'https://$domain\'@" \
+    -i config/config.yaml
 
 if [ $path != '/' ]
 then
-    sed -e "s@\*api-path\* \"\"@\*api-path\* \"$path\"@" -i config/config.lisp
+    sed -e "s@\*api-path\* \"\"@\*api-path\* \"$path\"@" -i config/config.yaml
 fi
 
 #=================================================
